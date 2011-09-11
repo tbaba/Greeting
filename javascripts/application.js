@@ -68,13 +68,13 @@ function init() {
       var markup = '';
       $.each(response.data, function() {
         markup += (
-          "<div class='friend' id='" + this.id + "'>" +
+          "<li class='friend' id='" + this.id + "'>" +
           "<img src='http://graph.facebook.com/" + this.id + "/picture' />" +
           this.name +
-          "</div>"
+          "</li>"
         );
       });
-      $('#friends-selector').append(markup);
+      $('#friends-selector .user-friends .content').append(markup);
     });
   });
 }
@@ -132,5 +132,16 @@ $().ready(function() {
   $('#send-message').live('click', function() {
     var url = $('#url').attr('value');
     send_message(url);
+  });
+
+  $(this).bind('reveal.facebox', function() {
+    $('#facebox .user-friends').pajinate({
+      items_per_page: 5,
+      num_page_links_to_display : 3,
+      nav_label_first : ' << ',
+      nav_label_last : ' >> ',
+      nav_label_prev : ' < ',
+      nav_label_next : ' > '
+    });
   });
 });
