@@ -11,13 +11,19 @@
   </head>
   <body>
     <div id="fb-root"></div>
-    <div id='friends'></div>
-    <div id='me'></div>
+    <div id='friends-selector' style='display:none;'>
+      <h2>select friends</h2>
+    </div>
+    <div id='me'>
+    </div>
     <p id='login'><a href='javascript:void(0);' onClick='javascript:login();'>Login</a></p>
     <p id='logout'><a href='javascript:void(0);' onClick='javascript:logout();'>Logout</a></p>
+    <p id='show_friends'><a href='#friends-selector' rel='facebox' class='get_friends'>Select Friends</a></p>
+    <div id='friends-selected'></div>
+    <div id='message'></div>
     <form action=''>
       <p><input type='text' id='url' name='url' /></p>
-      <p><a href='javascript:void(0);' onClick='javascript:send_message();'>Send URL</a></p>
+      <p><a href='javascript:void(0);' id='send-message'>Send URL</a></p>
     </form>
   </body>
 </html>

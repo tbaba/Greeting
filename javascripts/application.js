@@ -4,7 +4,7 @@ function login() {
       init();
       $('#me').html('login success!');
     } else {
-      alert('login failed...');
+      $('#me').html('login failed...');
     }
   });
 }
@@ -19,23 +19,44 @@ function logout() {
   });
 }
 
-function send_message() {
-  var length = localStorage.length;
-  var url = $('#url').attr('value');
-  for(var i=0; i<length; i++) {
+function send_message(url) {
+  var count = $('.friend-selected').length;
+  var i = 0;
+  while(i < count) {
+    var div = $('.friend-selected')[i];
+    var data = $(div).data('id');
     FB.ui({
-      method:'feed',
-      to:localStorage.getItem('key' + i),
+      method: 'feed',
+      to: data,
       from:'tatsuro.baba',
       link: url
-      }, function(response) {
+    }, function(response) {
       if(response && response.post_id) {
-        alert('published');
-        } else {
-        alert('cant published');
+        $('#message').append("<p>送信しました。</p>");
+      } else {
+        $('#message').append("<p>送信できませんでした。</p>");
       }
     });
+    i++;
   }
+  /*
+  $('#friends-selected').find('.friend').each(function() {
+    if($(this).data('id')) {
+      FB.ui({
+        method:'feed',
+        to: $(this).data('id'),
+        from:'tatsuro.baba',
+        link: url
+      }, function(response) {
+        if(response && response.post_id) {
+          alert('published');
+        } else {
+          alert('cant published');
+        }
+      });
+    }
+  });
+  */
 };
 
 function init() {
@@ -43,40 +64,73 @@ function init() {
     if (response.status != 'connected') {
       $('#me').html = 'You are not connected';
     }
-    FB.api({method: 'friends.get'}, function(response) {
+    FB.api('/me/friends', function(response) {
       var markup = '';
-      var numFriends = response ? Math.min(10, response.length) : 0;
-      if (numFriends > 0) {
-        for (var i=0; i < numFriends; i++) {
-          markup += (
-          "<div class='friend' id='" + response[i] + "'>" +
-            "<fb:profile-pic uid='" + response[i] + "' linked='false' size='square'></fb:profile-pic>" +
-            "</div>"
-          );
-        }
-        $('#friends').html(markup);
-        FB.XFBML.parse(document.getElementById('friends'));
-      }
+      $.each(response.data, function() {
+        markup += (
+          "<div class='friend' id='" + this.id + "'>" +
+          "<img src='http://graph.facebook.com/" + this.id + "/picture' />" +
+          this.name +
+          "</div>"
+        );
+      });
+      $('#friends-selector').append(markup);
     });
   });
 }
+
 $().ready(function() {
   FB.init({
     appId  : '163109277086937',
     status : true,
     cookie : true,
     xfbml  : true,
-    channelUrl : 'http://localhost/~harakirisoul/channel.html',
+    channelUrl : 'http://localhost/~harakirisoul/greeting/channel.html',
     oauth  : true
   });
 
   init();
 
-  localStorage.clear();
+  $('a[rel*=facebox]').facebox();
 
+  FB.Canvas.setAutoResize();
+
+  /*
+   * 友達を選択する機能のアイディア
+   *
+   * faceboxで友達リストを表示
+   * ↓
+   * 友達を選択
+   * ↓
+   * 別のdivに友達を表示する（それぞれのオブジェクトにselected属性を付けておく
+   * ↓
+   * 実際にmessageを送る際にはそこから送る人を特定して送信
+   */
   $('.friend').live('click', function() {
-    var key = 'key' + localStorage.length;
-    localStorage.setItem(key, $(this).attr('id'));
-    $(this).find('img').css('border', '3px solid #069');
+    if($(this).attr('selected')) {
+      $(this).removeAttr('selected');
+      $(this).css('color', 'black');
+      $(this).css('background-color', 'white');
+      $(this).css('box-shadow', '0px 0px 0px white');
+      $(this).css('-webkit-border-radius', '0px');
+
+      $('#friends-selected').remove(markup);
+    } else {
+      $(this).attr('selected', 'selected');
+      $(this).css('color', 'white');
+      $(this).css('background-color', '#069');
+      $(this).css('box-shadow', '0px 0px 10px #069');
+      $(this).css('-webkit-border-radius', '3px');
+
+      var markup = (
+        "<div class='friend-selected' data-id='" + $(this).attr('id') + "'>" + "<img src='http://graph.facebook.com/" + $(this).attr('id') + "/picture' />" + "</div>"
+      );
+      $('#friends-selected').append(markup);
+    }
+  });
+
+  $('#send-message').live('click', function() {
+    var url = $('#url').attr('value');
+    send_message(url);
   });
 });
