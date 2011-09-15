@@ -1,6 +1,8 @@
 require 'sinatra/base'
 
 class Greeting < Sinatra::Base
+  set :public, File.dirname(__FILE__) + '/static'
+
   get '/' do
     haml :index
   end
@@ -16,4 +18,5 @@ class Greeting < Sinatra::Base
   get '/application.js' do
     coffee :application
   end
+
 end
