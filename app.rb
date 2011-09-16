@@ -7,6 +7,10 @@ class Greeting < Sinatra::Base
     haml :index
   end
 
+  get '/channel' do
+    '<script src="//connect.facebook.net/ja_JP/all.js"></script>'
+  end
+
   get '/application.css' do
     scss :application
   end
