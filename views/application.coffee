@@ -22,9 +22,10 @@ send_message = (url) ->
     FB.ui { method: 'feed', to: data, from:'tatsuro.baba', link: url }, (response) =>
       if response and response.post_id
         $('#message').append("<p>success!</p>")
+        i++
       else
         $('#message').append("<p>fail...</p>")
-    i++
+        i++
 
 init = () ->
   FB.getLoginStatus (response) =>
@@ -39,10 +40,17 @@ init = () ->
           this.name +
           "</li>"
         )
-      $('#friends-selector .user-friends .content').append(markup)
+      $('#friends-selector .user-friends .content').append markup
 
-$().ready () ->
-  FB.init { appId  : '163109277086937', status : true, cookie : true, xfbml  : true, channelUrl : 'http://localhost/~harakirisoul/greeting/channel.html', oauth  : true }
+$ ->
+  FB.init
+    appId: '163109277086937',
+    status: true,
+    cookie: true,
+    xfbml: true,
+    channelUrl: 'http://greeting.dev/channel',
+    oauth: true
+
   FB.Canvas.setAutoResize()
 
   init()
@@ -53,7 +61,7 @@ $().ready () ->
     url = $('#url').attr('value')
     send_message url
 
-  $(this).bind('reveal.facebox', () =>
+  $(this).bind 'reveal.facebox', () =>
     $('#facebox .user-friends').pajinate {
       items_per_page: 5,
       num_page_links_to_display : 3,
@@ -61,60 +69,4 @@ $().ready () ->
       nav_label_last : ' >> ',
       nav_label_prev : ' < ',
       nav_label_next : ' > '
-###
-$().ready(function() {
-  FB.init({
-    appId  : '163109277086937',
-    status : true,
-    cookie : true,
-    xfbml  : true,
-    channelUrl : 'http://localhost/~harakirisoul/greeting/channel.html',
-    oauth  : true
-  });
-
-  init();
-
-  $('a[rel*=facebox]').facebox();
-
-  FB.Canvas.setAutoResize();
-
-  $('.friend').live('click', function() {
-    if($(this).attr('selected')) {
-      $(this).removeAttr('selected');
-      $(this).css('color', 'black');
-      $(this).css('background-color', 'white');
-      $(this).css('box-shadow', '0px 0px 0px white');
-      $(this).css('-webkit-border-radius', '0px');
-
-      $('#friends-selected').remove(markup);
-    } else {
-      $(this).attr('selected', 'selected');
-      $(this).css('color', 'white');
-      $(this).css('background-color', '#069');
-      $(this).css('box-shadow', '0px 0px 10px #069');
-      $(this).css('-webkit-border-radius', '3px');
-
-      var markup = (
-        "<div class='friend-selected' data-id='" + $(this).attr('id') + "'>" + "<img src='http://graph.facebook.com/" + $(this).attr('id') + "/picture' />" + "</div>"
-      );
-      $('#friends-selected').append(markup);
     }
-  });
-
-  $('#send-message').live('click', function() {
-    var url = $('#url').attr('value');
-    send_message(url);
-  });
-
-  $(this).bind('reveal.facebox', function() {
-    $('#facebox .user-friends').pajinate({
-      items_per_page: 5,
-      num_page_links_to_display : 3,
-      nav_label_first : ' << ',
-      nav_label_last : ' >> ',
-      nav_label_prev : ' < ',
-      nav_label_next : ' > '
-    });
-  });
-});
-###
