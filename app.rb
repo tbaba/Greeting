@@ -4,7 +4,7 @@ class Greeting < Sinatra::Base
   set :public, File.dirname(__FILE__) + '/static'
 
   get '/' do
-    haml :index
+    slim :index
   end
 
   get '/channel' do
