@@ -22,10 +22,9 @@ send_message = (url) ->
     FB.ui { method: 'feed', to: data, from:'tatsuro.baba', link: url }, (response) =>
       if response and response.post_id
         $('#message').append("<p>success!</p>")
-        i++
       else
         $('#message').append("<p>fail...</p>")
-        i++
+    i++
 
 init = () ->
   FB.getLoginStatus (response) =>
@@ -33,7 +32,7 @@ init = () ->
       $('#me').html = 'You are not connected'
     FB.api '/me/friends', (response) =>
       markup = ''
-      $.each response.data, () =>
+      $.each response.data, () ->
         markup += (
           "<li class='friend' id='" + this.id + "'>" +
           "<img src='http://graph.facebook.com/" + this.id + "/picture' />" +
@@ -57,7 +56,13 @@ $ ->
   
   $('a[rel*=facebox]').facebox()
 
-  $('#send-message').live 'click', () =>
+  $('#login-button').live 'click', () ->
+    login()
+
+  $('#logout-button').live 'click', () ->
+    logout()
+
+  $('#send-message').live 'click', () ->
     url = $('#url').attr('value')
     send_message url
 
@@ -70,3 +75,32 @@ $ ->
       nav_label_prev : ' < ',
       nav_label_next : ' > '
     }
+
+  $('.friend').live 'click', () ->
+    if $(this).attr('selected')
+      $(this).removeAttr 'selected'
+      $(this).css 'color', 'black'
+      $(this).css 'background-color', 'white'
+      $(this).css 'box-shadow', '0px 0px 0px white'
+      $(this).css '-webkit-border-radius', '0px'
+
+      $('#friends-selected').remove markup
+    else
+      $(this).attr 'selected', 'selected'
+      $(this).css 'color', 'white'
+      $(this).css 'background-color', '#069'
+      $(this).css 'box-shadow', '0px 0px 10px #069'
+      $(this).css '-webkit-border-radius', '3px'
+
+      markup = (
+        "<div class='friend-selected' data-id='" +
+        $(this).attr('id') +
+        "'>" +
+        "<img src='http://graph.facebook.com/" +
+        $(this).attr('id') +
+        "/picture'/></div>"
+      )
+      $('#friends-selected').append markup
+
+  $('.friend-selected').live 'click', () ->
+    $(this).remove()

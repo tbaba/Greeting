@@ -18,9 +18,9 @@
         %ul.content
     #me
     %p#login
-      %a{:href => "javascript:void(0);", :onclick => "javascript:login();"} Login
+      %a{:href => "javascript:void(0);", :id => 'login-button'} Login
     %p#logout
-      %a{:href => "javascript:void(0);", :onclick => "javascript:logout();"} Logout
+      %a{:href => "javascript:void(0);", :id => 'logout-button'} Logout
     %p#show_friends
       %a.get_friends{:href => "#friends-selector", :rel => "facebox"} Select Friends
     #friends-selected
