@@ -1,11 +1,3 @@
-login = () ->
-  FB.login (response) =>
-    if response.authResponse
-      init()
-      $('#me').html('success')
-    else
-      $('#me').html('failed')
-
 logout = () ->
   FB.logout (response) =>
     if response.authResponse
