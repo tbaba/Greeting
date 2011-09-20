@@ -63,19 +63,19 @@ $ ->
 
   $('.friend').live 'click', () ->
     if $(this).attr('selected')
-      $(this).removeAttr 'selected'
-      $(this).css 'color', 'black'
-      $(this).css 'background-color', 'white'
-      $(this).css 'box-shadow', '0px 0px 0px white'
-      $(this).css '-webkit-border-radius', '0px'
+      $(this).removeAttr('selected')
+      .css('color', 'black')
+      .css('background-color', 'white')
+      .css('box-shadow', '0px 0px 0px white')
+      .css('-webkit-border-radius', '0px')
 
       $('#friends-selected').remove markup
     else
-      $(this).attr 'selected', 'selected'
-      $(this).css 'color', 'white'
-      $(this).css 'background-color', '#069'
-      $(this).css 'box-shadow', '0px 0px 10px #069'
-      $(this).css '-webkit-border-radius', '3px'
+      $(this).attr('selected', 'selected')
+      .css('color', 'white')
+      .css('background-color', '#069')
+      .css('box-shadow', '0px 0px 10px #069')
+      .css('-webkit-border-radius', '3px')
 
       markup = (
         "<div class='friend-selected' data-id='" +
