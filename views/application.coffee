@@ -1,10 +1,3 @@
-logout = () ->
-  FB.logout (response) =>
-    if response.authResponse
-      $('#me').html('logout success')
-    else
-      $('#me').html('logout failed...')
-
 send_message = (url) ->
   count = $('.friend-selected').length
   i = 0
