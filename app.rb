@@ -3,7 +3,7 @@ require 'sinatra/base'
 class Greeting < Sinatra::Base
   set :public, File.dirname(__FILE__) + '/static'
 
-  get '/' do
+  post '/' do
     slim :index
   end
 
