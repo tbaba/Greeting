@@ -1,17 +1,120 @@
+* {
+  font {
+    family: "Helvetica Neue", Meyrio, sans-serif;
+  }
+  margin:0;
+  padding:0;
+  border:0;
+}
+
+body {
+  width:520px;
+  margin-left:auto;
+  margin-right:auto;
+  border-top:1px solid gray;
+}
+
 li.friend {
   margin:1em 0;
   padding:5px;
   list-style:none;
 }
 
-div.friend img {
-  margin:0 1px 0 0;
+div {
+  &.friend {
+    img {
+      margin:0 1px 0 0;
+    }
+  }
+
+  &#facebox {
+    .content {
+      width:400px !important;
+    }
+  }
+
+  &#friends-selector {
+    display:none;
+  }
+
+  &.fb-login-button {
+    display:block;
+    border:1px solid gray;
+    border-top:0px;
+    width:99%;
+    margin:0px auto 1em;
+    iframe {
+      margin:8px;
+    }
+  }
+
+  &.friend-selected {
+    display:inline;
+    margin:10px;
+  }
 }
 
-div#facebox .content {
-  width:400px !important;
+#show_friends {
+  margin:1em auto;
+  width:99%;
+  font-size:16px;
+  text-align:center;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  box-shadow:0px 0px 3px black;
+  background-image:-moz-linear-gradient(top, #1240AB, #4671D5);
+  background-image:-webkit-gradient(linear, left top, left bottom, from(#1240AB), to(#4671D5));
+  &:hover {
+    background-image:-moz-linear-gradient(top, darken(#1240AB, 10%), darken(#4671D5, 10%));
+    background-image:-webkit-gradient(linear, left top, left bottom, from(darken(#1240AB, 10%)), to(darken(#4671D5, 10%)));
+  }
+  &:active {
+    background-image:-moz-linear-gradient(top, darken(#1240AB, 10%), darken(#4671D5, 10%));
+    background-image:-webkit-gradient(linear, left top, left bottom, from(darken(#1240AB, 10%)), to(darken(#4671D5, 10%)));
+    position:relative;
+    top:1px;
+  }
+  a {
+    display:block;
+    padding:1em;
+    color:white;
+    text-shadow:0px 0px 3px black;
+    text-decoration:none;
+    transition:2s;
+    -moz-transition:2s;
+    -webkit-transition:2s;
+    &:hover {
+      shadow:0px 0px 5px white;
+    }
+  }
 }
 
-div#friends-selector {
-  display:none;
+form.send-url-to-friends {
+  text-align:center;
+  margin:0px auto;
+  input {
+    border:1px solid gray;
+    font-size:1.5em;
+    width:90%;
+    margin:1em auto;
+    padding:10px;
+  }
+  a#send-message {
+    color:white;
+    margin:1em auto;
+    padding:1em 5em;
+    border-radius:3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    text-decoration:none;
+    text-shadow:0px 0px 3px black;
+    box-shadow:0px 0px 3px black;
+    background-image:-moz-linear-gradient(top, #1240AB, #4671D5);
+    background-image:-webkit-gradient(linear, left top, left bottom, from(#1240AB), to(#4671D5));
+    &:hover {
+      background-image:-moz-linear-gradient(top, darken(#1240AB, 10%), darken(#4671D5, 10%));
+      background-image:-webkit-gradient(linear, left top, left bottom, from(darken(#1240AB, 10%)), to(darken(#4671D5, 10%)));
+    }
+  }
 }
