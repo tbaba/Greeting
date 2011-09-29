@@ -48,7 +48,7 @@ $ ->
     logout()
 
   $('#send-message').live 'click', () ->
-    url = $('#url').attr('value')
+    url = $('#choose-photo').find('input:checked').val()
     send_message url
 
   $(this).bind 'reveal.facebox', () =>

@@ -25,7 +25,17 @@ html
     #friends-selected
     #message
     form.send-url-to-friends{action=""}
-      p
-        input#url{name="url" type="text"}/
-      p
-        a#send-message{href="javascript:void(0);"} Send URL
+      #choose-photo
+        .photo
+          img{src='./images/summer01.gif'}
+          br/
+          input{type='radio' name='photo' value='http://greeting.dev/images/summer01.gif' checked}
+        .photo
+          img{src='./images/summer02.jpg'}
+          br/
+          input{type='radio' name='photo' value='http://greeting.dev/images/summer02.jpg'}
+        .photo
+          img{src='./images/summer03.jpg'}
+          br/
+          input{type='radio' name='photo' value='http://greeting.dev/images/summer03.jpg'}
+      a#send-message{href="javascript:void(0);"} Send URL

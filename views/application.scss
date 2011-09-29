@@ -100,7 +100,22 @@ form.send-url-to-friends {
     margin:1em auto;
     padding:10px;
   }
+  #choose-photo {
+    height:150px;
+    .photo {
+      float:left;
+      img {
+        width:80px;
+        height:80px;
+      }
+      input[type=radio] {
+        width:auto;
+        margin:auto;
+      }
+    }
+  }
   a#send-message {
+    clear:both;
     color:white;
     margin:1em auto;
     padding:1em 5em;
